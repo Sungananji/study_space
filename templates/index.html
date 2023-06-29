@@ -1,0 +1,44 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block content %}
+<div class="section no-pad-bot" id="index-banner">
+    <div class="container center">
+        <br>
+        <h2 class="header">Learning</h2>
+        <h5 class="header col s12 light ">A path to success, for every student</h5>
+    </div>
+    <div class="row center">
+        <a class="#546e7a blue-grey darken-1 waves-effect waves-light btn-large " href="{% url 'categories'%}">Browse</a>
+    </div>
+</div>
+
+
+<div class="section">
+	<h4 class="center-align">Active</h4>
+	<div class="divider"></div>
+</div>
+
+<div class="row">
+{% for course in courses %}
+<div class="col s12 m4">
+  <div class="card">
+    <div class="card-image waves-effect waves-block waves-light">
+      <img class="activator" src="{{ course.picture.url }}">
+    </div>
+    <div class="card-content">
+      <span class="card-title activator grey-text text-darken-4">{{ course.title }}<i class="material-icons right">more_vert</i></span>
+      <p><a href="{% url 'course' course.id %}" class=" #546e7a blue-grey-text">View Lesson</a></p>
+    </div>
+    <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4">About<i class="material-icons right">close</i></span>
+      <p>{{ course.description }}</p>
+    </div>
+  </div>
+</div>
+{% endfor %}
+</div>
+
+{% endblock %}
+
+

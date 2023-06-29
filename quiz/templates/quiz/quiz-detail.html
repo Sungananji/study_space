@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="section">
+    <h4 class="center-align">{{quiz.title}}</h4>
+    <div class="divider"></div>
+</div>
+<div class="row container">
+
+    <div class="col s4">
+        <h5>Due:</h5>
+        <p>{{quiz.due}}</p>
+    </div>
+    <div class="col s4">
+        <h5>Attempts:</h5>
+        <p>{{quiz.allowed_attempts}}</p>
+    </div>
+    <div class="col s4">
+        <h5>Time limit (Minutes):</h5>
+        <p>{{quiz.time_limit_mins}}</p>
+    </div>
+    <div class="col s12 ">
+        {{quiz.description | safe }}
+    </div>
+
+    <div class="fixed-action-btn">
+        <a href="{{request.META.HTTP_REFERER}}" class="btn-floating waves-light #546e7a blue-grey"><i class="material-icons">arrow_back</i></a>
+    </div>
+    <div class="col s12">
+        <ul class="collection with-header">
+          <li class="collection-header"><h4>My attempts</h4></li>
+          {% for attempt in my_attempts %}
+            <li class="collection-item">
+              <a href="{% url 'attempt-detail' course_id module_id quiz.id attempt.id %}" class="#546e7a blue-grey-text"><h5>Scored: {{ attempt.score }}</h5></a>
+            </li>
+          {% endfor %}    
+        </ul>  
+      </div>
+    <div class="col s12"> 
+        <a href="{% url 'take-quiz' course_id module_id quiz.id %}" class="btn-small waves-effect wave-light #546e7a blue-grey">Take Quiz</a>
+        
+    </div>
+</div>
+{%endblock%}
