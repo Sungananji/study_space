@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="section">
+    <h4 class="center-align">{{assignment.title}}</h4>
+    <div class="divider"></div>
+</div>
+<div class="row container">
+
+    <div class="col s6">
+        <h5>Due:</h5>
+        <p>{{assignment.due}}</p>
+    </div>
+    <div class="col s6">
+        <h5>Marks:</h5>
+        <p>{{assignment.points}}</p>
+    </div>
+    <div class="col s12 ">
+        {{assignment.content | safe }}
+    </div>
+
+     <div class="col s12">
+        <ul class="collection with header">
+            <li class="conlection-header">
+                <h4>Assignment Files</h4>
+            </li>
+            {%for file in assignment.files.all%}
+            <li class="collection item">
+                <div>{{file.get_file_name}}<a class="secondary-content" href="{{file.file.url}}" download>
+                    <i class="material-icons #546e7a blue-grey-text">download</i></a>
+                </div>
+            </li>
+            {%endfor%}
+        </ul>
+    </div>
+
+
+    <div class="fixed-action-btn">
+        <a href="{{request.META.HTTP_REFERER}}" class="btn-floating waves-light #546e7a blue-grey"><i class="material-icons">arrow_back</i></a>
+    </div>
+    <div class="col s12">
+        <ul class="collection with-header">
+          <li class="collection-header"><h4>My Submissions</h4></li>
+          {% for submission in my_submissions %}
+          <li class="collection-item avatar">
+            <i class="material-icons circle #546e7a blue-grey">source</i>
+            <span class="title"><b>{{submission.user.get_full_name}}</b></span>
+            <p>"{{submission.comment}}"</p>
+            <p>Submitted on {{submission.date}} </p>
+            <a href="#!" class="secondary-content"><i class="material-icons #546e7a blue-grey-text">delete</i></a>
+          </li>
+          {% endfor %}    
+        </ul>  
+      </div>
+    <div class="col s12"> 
+        <a href="{% url 'start-assignment' course_id module_id assignment.id %}" class="btn-small waves-effect wave-light #546e7a blue-grey">Start Assignment</a>
+        
+    </div>
+</div>
+{%endblock%}
