@@ -1,0 +1,41 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<div class="section">
+	<h4 class="align center">{{ category.title }}</h4>
+	<div class="divider"></div>
+</div>
+<div class="fixed-action-btn">
+  <a href="{{request.META.HTTP_REFERER}}" class="btn-floating waves-light #546e7a blue-grey"><i class="material-icons">arrow_back</i></a>
+</div>
+<div>
+  <a href="{%url 'new-course' %}" class="btn-floating btn-large waves-effect wave-light #546e7a blue-grey right"><i class="material-icons">add</i></a>
+</div>
+<div class="row">
+{% for course in courses %}
+<div class="col s12 m4">
+  <div class="card">
+    <div class="card-image waves-effect waves-block waves-light">
+      <a href="{% url 'course' course.id %}"><img class="activator" src="{{ course.picture.url }}"></a>
+    </div>
+    <div class="card-content">
+      <span class="card-title activator grey-text text-darken-4"><b>{{ course.title }}</b><i class="material-icons right">more_vert</i></span>
+      <p class="title"><b>{{ course.enrolled.count }}</b> Students</p>
+      {%if course.user == user%}
+      <a href="{% url 'edit-course' course.id %}" class="btn #546e7a blue-grey">Edit course</a>
+      <a href="{% url 'delete-course' course.id %}" class="btn red">Delete</a>
+      {%else%}
+      <a href="{% url 'enroll' course.id %}" class="btn #546e7a blue-grey">Enroll</a>
+      {%endif%}
+    </div>
+    
+    <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4">About<i class="material-icons right">close</i></span>
+      <p>{{ course.description }}</p>
+    </div>
+  </div>
+</div>
+{% endfor %}
+</div>
+
+{% endblock %}

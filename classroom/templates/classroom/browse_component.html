@@ -1,0 +1,11 @@
+
+<div class="section">
+  <h5 class="center-align">Browse Subjects</h5>
+  <div>
+    <ul class="collection">
+      {% for category in categories %}
+    <a href="{% url 'category-courses' category.slug %}" class="collection-item #546e7a blue-grey-text">{{category.title}}</a>
+    {% endfor %}
+  </ul>
+</div>
+</div>

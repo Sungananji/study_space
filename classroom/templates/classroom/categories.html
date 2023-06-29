@@ -1,0 +1,36 @@
+{% extends 'base.html'%}
+
+{% block banner %}
+<div class="section no-pad-bot" id="index-banner">
+  <div class="container">
+    <br>
+    <h2 class="header">Learning</h2>
+    <h5 class="header col s12 light">A path to success, for every student</h5>
+  </div>
+</div>
+{%endblock%}
+
+{%block content%}
+<div class="container">
+  <h4 class="center-align">Subjects</h4>
+  <div class="divider">
+    <div class="fixed-action-btn">
+      <a href="{{request.META.HTTP_REFERER}}" class="btn-floating waves-light #546e7a blue-grey"><i
+          class="material-icons">arrow_back</i></a>
+    </div>
+  </div>
+  <div class="row">
+    {% for category in categories %}
+    <div class="col s12 m4">
+      <a href="{% url 'category-courses' category.slug %}">
+        <div class="card-panel #607d8b blue-grey
+              center-align white-text">
+          <i class="material-icons large">{{ category.icon }}</i>
+          <h5><b>{{ category.title }}</b></h5>
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{%endblock%}
